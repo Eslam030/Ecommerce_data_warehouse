@@ -1,0 +1,1732 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/9/2023 8:52:51 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="GALAL-PC"
+  DTS:CreatorName="BBI-CONSULTANCY\ahmed.galal"
+  DTS:DTSID="{0792865F-0C66-4E7D-ABA5-880803F6525C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5131.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Load STG_Movie"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{4BE17BD3-DEF1-4EF8-A268-8E56AD99338C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GALAL-PC.DWH]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{15DA91E5-1216-423E-B0C5-22D018259CF9}"
+      DTS:ObjectName="GALAL-PC.DWH">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=GALAL-PC;Initial Catalog=DWH;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Load STG_Movie-{15DA91E5-1216-423E-B0C5-22D018259CF9}GALAL-PC.DWH;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GALAL-PC.Movies]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{49853F08-7B25-46E3-94AD-800A6A3E03A0}"
+      DTS:ObjectName="GALAL-PC.Movies">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=GALAL-PC;Initial Catalog=Movies;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Load STG_Movie-{49853F08-7B25-46E3-94AD-800A6A3E03A0}GALAL-PC.Movies;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GALAL-PC.STG]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{240A4718-6AB1-44A9-B9ED-9D462A725F95}"
+      DTS:ObjectName="GALAL-PC.STG">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=GALAL-PC;Initial Catalog=STG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Load STG_Movie-{240A4718-6AB1-44A9-B9ED-9D462A725F95}GALAL-PC.STG;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="7"
+      DTS:DTSID="{167F0F2D-12B4-4CC8-9551-0ED855428211}"
+      DTS:ObjectName="LAST_PROCESSED_DATE">
+      <DTS:Property
+        DTS:DataType="7"
+        DTS:Name="ParameterValue">4/9/1950 10:07:00 AM</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load DIM_Movie"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EB793660-1B87-4FE9-BBDF-CBEF49AE768B}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load DIM_Movie"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load DIM_Movie\New Record?"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="New Record?"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DIM_MOVIE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DIM_MOVIE]) [refTable]
+where [refTable].[film_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="movie_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="film_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="title" dataType="DT_STR" length="255" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="description" dataType="DT_TEXT" length="0" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="release_year" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="language" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="rental_duration" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="length" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="rating" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[film_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load DIM_Movie\New Record?.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[GALAL-PC.DWH]"
+                  connectionManagerRefId="Package.ConnectionManagers[GALAL-PC.DWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load DIM_Movie\New Record?.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\New Record?.Inputs[Lookup Input].Columns[film_id]"
+                      cachedDataType="i4"
+                      cachedName="film_id"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[film_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">film_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DIM_Movie\New Record?.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load DIM_Movie\New Record?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DIM_Movie\New Record?.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load DIM_Movie\New Record?.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DIM_Movie\New Record?.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load DIM_Movie\New Record?.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\New Record?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\New Record?.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\New Record?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\New Record?.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DIM_Movie\SRC_DB_STG_Movie"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC_DB_STG_Movie"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_MOVIE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[GALAL-PC.STG]"
+                  connectionManagerRefId="Package.ConnectionManagers[GALAL-PC.STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[stg_movie_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[stg_movie_key]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[stg_movie_key]"
+                      name="stg_movie_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[film_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[film_id]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[film_id]"
+                      name="film_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[title]"
+                      length="255"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[title]"
+                      name="title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[description]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[description]"
+                      name="description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[release_year]"
+                      length="4"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[release_year]"
+                      name="release_year"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[language]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[language]"
+                      length="20"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[language]"
+                      name="language"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[rental_duration]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[rental_duration]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[rental_duration]"
+                      name="rental_duration"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[length]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[length]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[length]"
+                      name="length"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[rating]"
+                      length="10"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[rating]"
+                      name="rating"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[stg_movie_key]"
+                      dataType="i4"
+                      name="stg_movie_key" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[film_id]"
+                      dataType="i4"
+                      name="film_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      name="description" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="release_year" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[language]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="language" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[rental_duration]"
+                      dataType="ui1"
+                      name="rental_duration" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[length]"
+                      dataType="ui1"
+                      name="length" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].ExternalColumns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="rating" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[stg_movie_key]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[stg_movie_key]"
+                      name="stg_movie_key" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[film_id]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[film_id]"
+                      name="film_id" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[description]"
+                      name="description" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[release_year]"
+                      name="release_year" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[language]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[language]"
+                      name="language" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[rental_duration]"
+                      dataType="ui1"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[rental_duration]"
+                      name="rental_duration" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[length]"
+                      dataType="ui1"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[length]"
+                      name="length" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[rating]"
+                      name="rating" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="TGT_DB_DIM_Movie"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DIM_MOVIE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[GALAL-PC.DWH]"
+                  connectionManagerRefId="Package.ConnectionManagers[GALAL-PC.DWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[film_id]"
+                      cachedDataType="i4"
+                      cachedName="film_id"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[film_id]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[film_id]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[description]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="description"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[description]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[description]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[release_year]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="release_year"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[release_year]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[release_year]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[language]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="language"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[language]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[language]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[rental_duration]"
+                      cachedDataType="ui1"
+                      cachedName="rental_duration"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rental_duration]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[rental_duration]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[length]"
+                      cachedDataType="ui1"
+                      cachedName="length"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[length]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[length]" />
+                    <inputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].Columns[rating]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="rating"
+                      externalMetadataColumnId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rating]"
+                      lineageId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output].Columns[rating]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[movie_key]"
+                      dataType="i4"
+                      name="movie_key" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[film_id]"
+                      dataType="i4"
+                      name="film_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      name="description" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="release_year" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[language]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="language" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rental_duration]"
+                      dataType="ui1"
+                      name="rental_duration" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[length]"
+                      dataType="ui1"
+                      name="length" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="rating" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load DIM_Movie.Paths[Lookup No Match Output]"
+              endId="Package\Load DIM_Movie\TGT_DB_DIM_Movie.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Load DIM_Movie\New Record?.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Load DIM_Movie.Paths[OLE DB Source Output]"
+              endId="Package\Load DIM_Movie\New Record?.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load DIM_Movie\SRC_DB_STG_Movie.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load STG_Movie"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{77D92035-D3A5-4C61-BA96-FBDEFC3D7BF1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load STG_Movie">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load STG_Movie\LKP_Language_Desc"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP_Language_Desc"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[language]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[language]) [refTable]
+where [refTable].[language_id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="language_id" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="name" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="last_update" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[language_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG_Movie\LKP_Language_Desc.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[GALAL-PC.Movies]"
+                  connectionManagerRefId="Package.ConnectionManagers[GALAL-PC.Movies]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG_Movie\LKP_Language_Desc.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG_Movie\LKP_Language_Desc.Inputs[Lookup Input].Columns[language_id]"
+                      cachedDataType="ui1"
+                      cachedName="language_id"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[language_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">language_id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load STG_Movie\LKP_Language_Desc.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Match Output].Columns[lkp_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="20"
+                      lineageId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Match Output].Columns[lkp_name]"
+                      name="lkp_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">name</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load STG_Movie\LKP_Language_Desc.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load STG_Movie\LKP_Language_Desc.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG_Movie\SRC_DB_Film"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC_DB_Film"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[film]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG_Movie\SRC_DB_Film.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[GALAL-PC.Movies]"
+                  connectionManagerRefId="Package.ConnectionManagers[GALAL-PC.Movies]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[film_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[film_id]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[film_id]"
+                      name="film_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[title]"
+                      length="255"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[title]"
+                      name="title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[description]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[description]"
+                      name="description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[release_year]"
+                      length="4"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[release_year]"
+                      name="release_year"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[language_id]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[language_id]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[language_id]"
+                      name="language_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[rental_duration]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[rental_duration]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[rental_duration]"
+                      name="rental_duration"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[length]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[length]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[length]"
+                      name="length"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[rating]"
+                      length="10"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[rating]"
+                      name="rating"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[film_id]"
+                      dataType="i4"
+                      name="film_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      name="description" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="release_year" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[language_id]"
+                      dataType="ui1"
+                      name="language_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[original_language_id]"
+                      dataType="ui1"
+                      name="original_language_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[rental_duration]"
+                      dataType="ui1"
+                      name="rental_duration" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[rental_rate]"
+                      dataType="numeric"
+                      name="rental_rate"
+                      precision="4"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[length]"
+                      dataType="i2"
+                      name="length" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[replacement_cost]"
+                      dataType="numeric"
+                      name="replacement_cost"
+                      precision="5"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="rating" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[special_features]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="special_features" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].ExternalColumns[last_update]"
+                      dataType="dbTimeStamp"
+                      name="last_update" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[film_id]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[film_id]"
+                      name="film_id" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[title]"
+                      name="title" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[description]"
+                      name="description" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[release_year]"
+                      name="release_year" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[language_id]"
+                      dataType="ui1"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[language_id]"
+                      name="language_id" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[rental_duration]"
+                      dataType="ui1"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[rental_duration]"
+                      name="rental_duration" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[length]"
+                      dataType="i2"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[length]"
+                      name="length" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Error Output].Columns[rating]"
+                      name="rating" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG_Movie\TGT_DB_STG_Movie"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="TGT_DB_STG_Movie"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_MOVIE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[GALAL-PC.STG]"
+                  connectionManagerRefId="Package.ConnectionManagers[GALAL-PC.STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[film_id]"
+                      cachedDataType="i4"
+                      cachedName="film_id"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[film_id]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[film_id]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="title"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[title]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[description]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="description"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[description]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[description]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[release_year]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="release_year"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[release_year]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[release_year]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[rental_duration]"
+                      cachedDataType="ui1"
+                      cachedName="rental_duration"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rental_duration]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[rental_duration]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[length]"
+                      cachedDataType="i2"
+                      cachedName="length"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[length]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[length]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[rating]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="rating"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rating]"
+                      lineageId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output].Columns[rating]" />
+                    <inputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].Columns[lkp_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="lkp_name"
+                      externalMetadataColumnId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[language]"
+                      lineageId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Match Output].Columns[lkp_name]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[stg_movie_key]"
+                      dataType="i4"
+                      name="stg_movie_key" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[film_id]"
+                      dataType="i4"
+                      name="film_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="title" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[description]"
+                      codePage="1252"
+                      dataType="text"
+                      name="description" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[release_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="release_year" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[language]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="language" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rental_duration]"
+                      dataType="ui1"
+                      name="rental_duration" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[length]"
+                      dataType="ui1"
+                      name="length" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input].ExternalColumns[rating]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="rating" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\TGT_DB_STG_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG_Movie\TGT_DB_STG_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Movie\TGT_DB_STG_Movie.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load STG_Movie.Paths[Lookup Match Output]"
+              endId="Package\Load STG_Movie\TGT_DB_STG_Movie.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\Load STG_Movie\LKP_Language_Desc.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load STG_Movie.Paths[OLE DB Source Output]"
+              endId="Package\Load STG_Movie\LKP_Language_Desc.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load STG_Movie\SRC_DB_Film.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EE6973C8-A688-4373-8B45-C39AAB07D194}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{240A4718-6AB1-44A9-B9ED-9D462A725F95}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_Movie;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2870FE10-655D-4167-BCAF-57CE587FB9FB}"
+      DTS:From="Package\Truncate STG Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load STG_Movie" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{01815264-3A30-455C-9FF3-FC8315CFD621}"
+      DTS:From="Package\Load STG_Movie"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load DIM_Movie" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\Load DIM_Movie"
+          TopLeft="74.2857144438491,269.176470352292" />
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\Load STG_Movie"
+          TopLeft="75.5000001490116,153.088235164751" />
+        <NodeLayout
+          Size="172,41.6"
+          Id="Package\Truncate STG Table"
+          TopLeft="65.0000001383679,36.705882320767" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="152.45000014369,78.305882320767">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.7823528439837"
+              Start="0,0"
+              End="0,67.2823528439837">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.2823528439837" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="153.29285729643,194.688235164751">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.4882351875413"
+              Start="0,0"
+              End="0,66.9882351875413">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.9882351875413" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load DIM_Movie">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="175.2,41.6"
+          Id="Package\Load DIM_Movie\SRC_DB_STG_Movie"
+          TopLeft="214.545451348478,33.1818176873706" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Load DIM_Movie\TGT_DB_DIM_Movie"
+          TopLeft="217.857139610819,207.85713975983" />
+        <NodeLayout
+          Size="140,41.6"
+          Id="Package\Load DIM_Movie\New Record?"
+          TopLeft="229.545451124961,114.350647646692" />
+        <EdgeLayout
+          Id="Package\Load DIM_Movie.Paths[OLE DB Source Output]"
+          TopLeft="300.845451236719,74.7818176873706">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.5688299593214"
+              Start="0,0"
+              End="0,32.0688299593214">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.0688299593214" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load DIM_Movie.Paths[Lookup No Match Output]"
+          TopLeft="302.70129536789,155.950647646692">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.906492113138"
+              Start="0,0"
+              End="0,44.406492113138">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.406492113138" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,16.398558556569,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DIM_Movie\SRC_DB_STG_Movie">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DIM_Movie\TGT_DB_DIM_Movie">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DIM_Movie\New Record?">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DIM_MOVIE]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load STG_Movie">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="141.6,41.6"
+          Id="Package\Load STG_Movie\SRC_DB_Film"
+          TopLeft="109.857141220144,22.2857139536313" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Load STG_Movie\LKP_Language_Desc"
+          TopLeft="87.1428558443274,117.857141100935" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Load STG_Movie\TGT_DB_STG_Movie"
+          TopLeft="83.5714273261173,224.285710943597" />
+        <EdgeLayout
+          Id="Package\Load STG_Movie.Paths[OLE DB Source Output]"
+          TopLeft="177.899998532236,63.8857139536313">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.9714271473033"
+              Start="0,0"
+              End="0,46.4714271473033">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.4714271473033" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load STG_Movie.Paths[Lookup Match Output]"
+          TopLeft="173.357141585222,159.457141100935">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64.8285698426621"
+              Start="0,0"
+              End="0,57.3285698426621">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.3285698426621" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,22.859597421331,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG_Movie\SRC_DB_Film">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG_Movie\LKP_Language_Desc">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[language]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG_Movie\TGT_DB_STG_Movie">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

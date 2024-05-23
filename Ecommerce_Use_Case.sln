@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "Ecommerce_Use_Case", "Movie_Rental_Use_Case\Ecommerce_Use_Case.dtproj", "{E5B4BA12-1EAD-4276-9A01-D2118E816AD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5B4BA12-1EAD-4276-9A01-D2118E816AD5}.Development|Default.ActiveCfg = Development
+		{E5B4BA12-1EAD-4276-9A01-D2118E816AD5}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {708AC5AA-C109-4D53-BCF6-B7D2884A2307}
+	EndGlobalSection
+EndGlobal

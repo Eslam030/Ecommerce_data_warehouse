@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="ESLAM.DataWarehouse"
+  DTS:DTSID="{39439734-B600-4240-AD40-AC3C3981447D}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=ESLAM;Initial Catalog=DWH_Project;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Movie_Rental_Use_Case-{39439734-B600-4240-AD40-AC3C3981447D}ESLAM.DataWarehouse;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
